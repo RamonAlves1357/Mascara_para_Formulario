@@ -1,23 +1,38 @@
-var cpf = document.querySelector("#cpf");
+var cpf = document.querySelector("#CPF");
 //ID do campo onde irá digitar o CPF ou CNPJ
 
 var celular = document.querySelector("#celular");
 //ID do campo onde irá digitar o celular ou telefone
 
-var rg = document.querySelector("#RG");
+var telefone = document.querySelector("#telefone");
+//ID do campo onde irá digitar o celular ou telefone
+
+var rg = document.querySelector("#rg");
 //ID do campo onde irá digitar o RG
 
-celular.addEventListener("keyup", () => {
-    celular.value = maskPhone(celular.value);
-});
+if (rg != null) {
+    rg.addEventListener("keyup", () => {
+        rg.value = maskRG(rg.value);
+    });
+}
 
-cpf.addEventListener("keyup", () => {
-    cpf.value = maskCpfCnpj(cpf.value);
-});
+if (celular != null) {
+    celular.addEventListener("keyup", () => {
+        celular.value = maskPhone(celular.value);
+    });
+}
 
-rg.addEventListener("keyup", () => {
-    rg.value = maskRG(rg.value);
-});
+if (telefone != null) {
+    telefone.addEventListener("keyup", () => {
+        telefone.value = maskPhone(telefone.value);
+    });
+}
+
+if (cpf != null) {
+    cpf.addEventListener("keyup", () => {
+        cpf.value = maskCpfCnpj(cpf.value);
+    });
+}
 
 function maskPhone(value) {
     v = value;
@@ -33,9 +48,16 @@ function maskPhone(value) {
 function maskRG(value) {
     a = value;
     a = a.replace(/\D/g, ""); //Não deixa digitar letras
-    a = a.replace(/(\d{1})(\d)/, "$1.$2");
-    a = a.replace(/(\d{3})(\d)/, "$1.$2");
-    a = a.replace(/(.\d{3})\d+?$/, "$1");
+
+    if (a.length <= 7) {
+        a = a.replace(/(\d{1})(\d)/, "$1.$2");
+        a = a.replace(/(\d{3})(\d)/, "$1.$2");
+        a = a.replace(/(.\d{3})\d+?$/, "$1");
+    } else {
+        a = a.replace(/(\d{3})(\d)/, "$1.$2");
+        a = a.replace(/(\d{3})(\d)/, "$1.$2");
+        a = a.replace(/(.\d{3})\d+?$/, "$1");
+    }
 
     return a;
 }
